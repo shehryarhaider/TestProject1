@@ -15,4 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/hello','TestController@index')->name('test');
+Route::get('/test','TestController@index')->name('test');
+
+Route::post('/user_create','TestController@create')->name('user.create');

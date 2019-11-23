@@ -7,6 +7,14 @@
     <title>Document</title>
 </head>
 <body>
+    <form action="{{route('user.create')}}" method="post">
+        @csrf
+        <input type="text" name="name" placeholder="Name"><br>
+        <input type="text" name="email" placeholder="Email"><br>
+        <input type="password" name="password" placeholder="password"><br><br>
+        <input type="submit" name="submit" value="SUBMIT">
+    </form>
+    <br>
     <table>
         <thead>
             <th>Name</th>  
