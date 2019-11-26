@@ -7,11 +7,17 @@
     <title>Document</title>
 </head>
 <body>
+    @if(session('message'))
+        <h4>{{session('message')}}</h4>
+    @endif
     <form action="{{$isEdit ? route('test.update',$specified_user->id) : route('user.create')}}" method="post">
         @csrf
         <input type="text" name="name" placeholder="Name" value="{{$specified_user->name ?? null}}"><br>
+        <span>{{$errors->first('name') ?? null}}</span><br>
         <input type="text" name="email" placeholder="Email" value="{{$specified_user->email ?? null}}"><br>
+         <span>{{$errors->first('email') ?? null}}</span><br>
         <input type="password" name="password" placeholder="password"><br><br>
+         <span>{{$errors->first('password') ?? null}}</span><br>
         <input type="submit" name="submit" value="SUBMIT">
     </form>
     <br>

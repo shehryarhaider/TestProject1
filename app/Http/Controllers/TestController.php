@@ -15,12 +15,17 @@ class TestController extends Controller
     }
     public function create(Request $request)
     {
+    	$request->validate([
+    		'name' 		=> 	'required',
+    		'email'		=>	'required|unique:users,email',
+    		'password'	=>	'required'
+    	]);
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = $request->password;
         $user->save();
-        return redirect()->route('test');
+        return redirect()->route('test')->with('message','User Successfully Created!');
     }
 
     public function edit($id)
@@ -38,7 +43,7 @@ class TestController extends Controller
         $user->email = $request->email;
         $user->password = $request->password;
         $user->save();
-        return redirect()->route('test');
+        return redirect()->route('test')->with('message','User Successfully Updated!');
     }
 
     public function delete($id)

@@ -11,6 +11,9 @@
 |
 */
 
+// php artisan make:controller UserController --resource
+// php artisan route:list
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -22,3 +25,4 @@ Route::get('/test/{id}','TestController@edit')->name('test.edit');
 Route::post('/test/update/{id}','TestController@update')->name('test.update');
 
 Route::get('/test/delete/{id}','TestController@delete')->name('test.delete');
+
