@@ -9,16 +9,49 @@ class TestController extends Controller
 {
     public function index()
     {
-        $data = User::get();
-        return view('test',compact('data'));
+    	$isEdit = false;
+    	$data = User::all();
+        return view('test',compact('data','isEdit'));
     }
     public function create(Request $request)
     {
+    	$request->validate([
+    		'name' 		=> 	'required',
+    		'email'		=>	'required|unique:users,email',
+    		'password'	=>	'required'
+    	]);
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = $request->password;
         $user->save();
-        return redirect()->route('test');
+        return redirect()->route('test')->with('message','User Successfully Created!');
     }
+
+    public function edit($id)
+    {
+    	$isEdit = true;
+    	$data = User::get();
+    	$specified_user = User::find($id);
+    	return view('test',compact('specified_user','data','isEdit'));
+    }
+
+    public function update(Request $request,$id)
+    {
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = $request->password;
+        $user->save();
+        return redirect()->route('test')->with('message','User Successfully Updated!');
+    }
+
+    public function delete($id)
+    {
+    	$user  = User::find($id);
+    	$user->delete();
+    	return redirect()->route('test'); 
+    }
+
 }
+
