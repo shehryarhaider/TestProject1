@@ -14,15 +14,21 @@
 // php artisan make:controller UserController --resource
 // php artisan route:list
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['middleware' => 'auth'],function(){
+
+	Route::get('/', function () {
+	    return view('welcome');
+	});
+
+	Route::get('/test','TestController@index')->name('test');
+
+	Route::post('/user_create','TestController@create')->name('user.create');
+	Route::get('/test/{id}','TestController@edit')->name('test.edit');
+	Route::post('/test/update/{id}','TestController@update')->name('test.update');
+
+	Route::get('/test/delete/{id}','TestController@delete')->name('test.delete');
+
 });
 
-Route::get('/test','TestController@index')->name('test');
-
-Route::post('/user_create','TestController@create')->name('user.create');
-Route::get('/test/{id}','TestController@edit')->name('test.edit');
-Route::post('/test/update/{id}','TestController@update')->name('test.update');
-
-Route::get('/test/delete/{id}','TestController@delete')->name('test.delete');
+Auth::routes();
 

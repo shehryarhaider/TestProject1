@@ -20,11 +20,7 @@ class TestController extends Controller
     		'email'		=>	'required|unique:users,email',
     		'password'	=>	'required'
     	]);
-        $user = new User;
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = $request->password;
-        $user->save();
+       	User::create($request->all());
         return redirect()->route('test')->with('message','User Successfully Created!');
     }
 
@@ -39,10 +35,7 @@ class TestController extends Controller
     public function update(Request $request,$id)
     {
         $user = User::find($id);
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = $request->password;
-        $user->save();
+        $user->update($request->all());
         return redirect()->route('test')->with('message','User Successfully Updated!');
     }
 
